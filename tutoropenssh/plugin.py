@@ -54,7 +54,7 @@ RUN echo 'root:PASSWORD' | chpasswd
 RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 RUN sed -ri 's/#Port 22/Port 8022/g' /etc/ssh/sshd_config
-RUN mkdir /home/app/.ssh
+# RUN mkdir /home/app/.ssh
 EXPOSE 8022
 USER app
 """
