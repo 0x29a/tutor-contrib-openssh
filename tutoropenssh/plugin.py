@@ -51,10 +51,10 @@ USER root
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 RUN echo 'root:PASSWORD' | chpasswd
-RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-RUN sed -i 's/#Port 22/Port 8022/' /etc/ssh/sshd_config
-RUN ssh-keygen -A
+RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+RUN sed -ri 's/#Port 22/Port 8022/g' /etc/ssh/sshd_config
+RUN mkdir /home/app/.ssh
 EXPOSE 8022
 USER app
 """
