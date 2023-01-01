@@ -53,8 +53,9 @@ RUN mkdir /var/run/sshd
 RUN echo 'root:PASSWORD' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+RUN sed -i 's/#Port 22/Port 8022/' /etc/ssh/sshd_config
 RUN ssh-keygen -A
-EXPOSE 22
+EXPOSE 8022
 USER app
 """
     )
